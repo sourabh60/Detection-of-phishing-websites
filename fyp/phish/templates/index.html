@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: #6b6a6a35;
+      }
+
+      .searchbar {
+        margin-bottom: auto;
+        margin-top: auto;
+        height: 60px;
+        background-color: #353b48;
+        border-radius: 30px;
+        padding: 10px;
+      }
+
+      .search_input {
+        color: white;
+        border: 0;
+        outline: 0;
+        background: none;
+        width: 0;
+        caret-color: transparent;
+        line-height: 40px;
+        transition: width 0.4s linear;
+      }
+
+      .search_input {
+        padding: 0 10px;
+        width: 450px;
+        caret-color: red;
+        transition: width 0.4s linear;
+      }
+
+      .searchbar:hover > .search_icon {
+        background: white;
+        color: #e74c3c;
+      }
+
+      .search_icon {
+        border: transparent;
+        height: 40px;
+        width: 40px;
+        float: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: rgb(19, 18, 18);
+        text-decoration: none;
+      }
+
+      h1,
+      h2 {
+        padding-top: 3%;
+        text-align: center;
+      }
+      .button--loading {
+        display: none;
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        border: 4px solid transparent;
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: button-loading-spinner 1s ease infinite;
+      }
+      @keyframes button-loading-spinner {
+        from {
+          transform: rotate(0turn);
+        }
+
+        to {
+          transform: rotate(1turn);
+        }
+      }
+
+      .name {
+            float: left;
+      }
+
+      .name1 {
+        float: right;
+      }
+
+      li{
+        padding: 10px;
+        font-size: large; 
+        font-style: bold;
+      }
+    </style>
+  </head>
+  {% if result == "Legitimate" %}
+  <body style="background-color:rgb(131, 205, 131);">
+  {% elif result == "Phishing" %}
+  <body style="background-color:#e74c3c">
+  {% else %}
+  <body>
+  {% endif %}
+    <h1>Phish</h1>
+    <form action="{% url 'result' %}">
+      <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar" style="margin-top: 3%">
+            <input
+              class="search_input"
+              type="text"
+              name="url"
+              placeholder="Enter URL"
+            />
+            <button type="submit" id="button" class="search_icon">
+              <i class="fas fa-search" id="icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div id="loader" class="button--loading"></div>
+    <h2>Prediction</h2>
+    <h2>{{ result }}</h2>
+    <div class="name">
+    <li>{{ UA }}</li>
+    <br>
+    <li>{{ SSL }}</li>
+    <br>
+    <li>{{ PS }}</li>
+    <br>
+    </div>
+    <div class="name1">
+    <li>{{ WR }}</li>
+    <br>
+    <li>{{ SD }}</li>
+    <br>
+    <li>{{ RDC }}</li>
+    </div>
+    <script>
+      const theButton = document.querySelector("#button");
+
+      theButton.addEventListener("click", () => {
+        $("#loader").css("display", "block");
+      });
+    </script>
+  </body>
+</html>
+
+
